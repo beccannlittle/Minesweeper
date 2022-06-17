@@ -7,22 +7,26 @@ public class CellsController : MonoBehaviour
 {
     public UIController uiController;
     public GameObject cellPrefab;
+    public GameObject loserUI;
+    public GameObject winnerUI;
+    public int mineCount = 10;
 
     private const int columns = 10;
     private const int rows = 8;
-    private const int mineCount = 10;
 
-    private int flagCount = mineCount;
+    private int flagCount = 0;
     private Cell[] cells = new Cell[columns * rows];
 
     void Start()
     {
         SetUpBoard();
-        uiController.SetFlagCount(flagCount);
     }
 
     public void SetUpBoard()
     {
+        flagCount = mineCount;
+        uiController.SetFlagCount(flagCount);
+        
         foreach (Transform child in gameObject.transform) 
         {
             GameObject.Destroy(child.gameObject);
@@ -58,6 +62,23 @@ public class CellsController : MonoBehaviour
     public void UpdateFlagCount(int delta) {
         flagCount += delta;
         uiController.SetFlagCount(flagCount);
+    }
+
+    public void LoseGame()
+    {
+        loserUI.SetActive(true);
+    }
+
+    public void CheckWin()
+    {
+        int unopenedCount = 0;
+        for (int i = 0; i < columns * rows; i++) {
+            if (cells[i].currentState == Cell.CellState.Unopened)
+            {
+                unopenedCount++;
+            }
+        }
+        if (unopenedCount == mineCount) winnerUI.SetActive(true);
     }
 
     // Shamelessly stolen from https://forum.unity.com/threads/random-number-without-repeat.497923/

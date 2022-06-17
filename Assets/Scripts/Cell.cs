@@ -15,8 +15,8 @@ public class Cell : MonoBehaviour
     [HideInInspector]
     public int mineCount = 0;
 
-    enum CellState { Unopened, Opened, Flagged };
-    CellState currentState = CellState.Unopened;
+    public enum CellState { Unopened, Opened, Flagged };
+    public CellState currentState = CellState.Unopened;
 
     public void HandleLeftClick()
     {
@@ -25,6 +25,7 @@ public class Cell : MonoBehaviour
             if (mineCount < 0)
             {
                 bombIcon.SetActive(true);
+                cellsController.LoseGame();
             }
             else
             {
@@ -32,6 +33,7 @@ public class Cell : MonoBehaviour
                 button.interactable = false;
                 countText.text = mineCount.ToString();
                 countText.gameObject.SetActive(true);
+                cellsController.CheckWin();
             }
         }
     }
