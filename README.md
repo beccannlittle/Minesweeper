@@ -13,5 +13,6 @@ Completed minimum requirements:
 Issues that make this borderline unplayable:
 - Didn't implement recursively revealing adjacent cells with `mineCount = 0`
 - mineCount logic for cells on the left and right edges is incorrectly wrapping
+- winCheck logic is wrong
 
-Also note that I used a 3rd party asset for icons, if you run this locally you'll see those as solid sprite colors. This shouldn't impact gameplay.
+Also note that I used a 3rd party asset for icons, which are `.gitignore`d in order for the live demo to be hosted via Pages (must be a public repo). If you run this locally you'll see those as solid sprite colors, but this shouldn't impact gameplay.
